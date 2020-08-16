@@ -1,8 +1,10 @@
 package datediff.controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import datediff.model.DaysResponse;
+import datediff.model.WeekDaysResponse;
 import datediff.service.DateDiff;
 import io.micronaut.core.convert.format.Format;
 import io.micronaut.http.annotation.Controller;
@@ -20,9 +22,16 @@ public class DateDiffController {
 
 	@Get("/days")
 	public DaysResponse days(
-			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime d1,
-			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime d2) {
-		return dateDiff.getDays(d1, d2);
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
+		return dateDiff.getDays(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
+	}
+
+	@Get("/weekdays")
+	public WeekDaysResponse weekDays(
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
+		return dateDiff.getWeekDays(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
 	}
 
 }

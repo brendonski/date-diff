@@ -33,4 +33,11 @@ public class DateDiffControllerTest {
 				.retrieve(HttpRequest.GET("/date-diff/days?d1=&d2=")));
 	}
 
+	@Test
+	void testWeekDaysResponse() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/weekdays?d1=10-08-2020%2009:30:00&d2=17-08-2020%2017:30:00"));
+		assertEquals("{\"weekDays\":5}", response);
+	}
+
 }
