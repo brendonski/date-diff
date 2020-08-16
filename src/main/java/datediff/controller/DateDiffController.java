@@ -5,6 +5,7 @@ import java.time.ZoneId;
 
 import datediff.model.DaysResponse;
 import datediff.model.WeekDaysResponse;
+import datediff.model.WeeksResponse;
 import datediff.service.DateDiff;
 import io.micronaut.core.convert.format.Format;
 import io.micronaut.http.annotation.Controller;
@@ -32,6 +33,13 @@ public class DateDiffController {
 			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
 			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
 		return dateDiff.getWeekDays(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
+	}
+
+	@Get("/weeks")
+	public WeeksResponse weeks(
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
+		return dateDiff.getWeeks(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
 	}
 
 }

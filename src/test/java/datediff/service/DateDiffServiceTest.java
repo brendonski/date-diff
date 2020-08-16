@@ -3,11 +3,13 @@ package datediff.service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
 import datediff.model.DaysResponse;
 import datediff.model.WeekDaysResponse;
+import datediff.model.WeeksResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,6 +85,39 @@ public class DateDiffServiceTest {
 		ZonedDateTime zdt2 = dt2.atZone(ZoneId.systemDefault());
 		WeekDaysResponse response = service.getWeekDays(zdt1, zdt2);
 		assertEquals(5L, response.getWeekDays());
+	}
+
+	@Test
+	public void testGetWeeks() {
+		DateDiffService service = new DateDiffService();
+		LocalDateTime dt1 = LocalDateTime.of(2020, 8, 10, 9, 00);
+		LocalDateTime dt2 = LocalDateTime.of(2020, 8, 17, 17, 00);
+		ZonedDateTime zdt1 = dt1.atZone(ZoneId.systemDefault());
+		ZonedDateTime zdt2 = dt2.atZone(ZoneId.systemDefault());
+		WeeksResponse response = service.getWeeks(zdt1, zdt2);
+		assertEquals(1L, response.getWeeks());
+	}
+
+	@Test
+	public void testZeroWeeks() {
+		DateDiffService service = new DateDiffService();
+		LocalDateTime dt1 = LocalDateTime.of(2020, 8, 10, 9, 00);
+		LocalDateTime dt2 = LocalDateTime.of(2020, 8, 16, 17, 00);
+		ZonedDateTime zdt1 = dt1.atZone(ZoneId.systemDefault());
+		ZonedDateTime zdt2 = dt2.atZone(ZoneId.systemDefault());
+		WeeksResponse response = service.getWeeks(zdt1, zdt2);
+		assertEquals(0, response.getWeeks());
+	}
+
+	@Test
+	public void test53Weeks() {
+		DateDiffService service = new DateDiffService();
+		LocalDateTime dt1 = LocalDateTime.of(2018, 8, 10, 9, 00);
+		LocalDateTime dt2 = LocalDateTime.of(2019, 8, 17, 8, 59);
+		ZonedDateTime zdt1 = dt1.atZone(ZoneId.systemDefault());
+		ZonedDateTime zdt2 = dt2.atZone(ZoneId.systemDefault());
+		WeeksResponse response = service.getWeeks(zdt1, zdt2);
+		assertEquals(53L, response.getWeeks());
 	}
 
 }

@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 import datediff.model.DaysResponse;
 import datediff.model.WeekDaysResponse;
+import datediff.model.WeeksResponse;
 
 import static java.time.temporal.ChronoField.INSTANT_SECONDS;
 
@@ -16,8 +17,7 @@ public class DateDiffService implements DateDiff {
 
 	@Override
 	public DaysResponse getDays(ZonedDateTime dt1, ZonedDateTime dt2) {
-		validateDates(dt1, dt2);
-		long daysBetween = ChronoUnit.DAYS.between(dt1, dt2);
+		long daysBetween = getBetween(dt1, dt2, ChronoUnit.DAYS);
 		DaysResponse response = new DaysResponse();
 		response.setDays(daysBetween < 0 ? daysBetween * -1 : daysBetween);
 		return response;
@@ -32,10 +32,23 @@ public class DateDiffService implements DateDiff {
 		return response;
 	}
 
+	@Override
+	public WeeksResponse getWeeks(ZonedDateTime dt1, ZonedDateTime dt2) {
+		long weeksBetween = getBetween(dt1, dt2, ChronoUnit.WEEKS);
+		WeeksResponse response = new WeeksResponse();
+		response.setWeeks(weeksBetween);
+		return response;
+	}
+
 	private void validateDates(ZonedDateTime dt1, ZonedDateTime dt2) {
 		if (dt1 == null || dt2 == null) {
 			throw new IllegalArgumentException("both datetimes must be specified");
 		}
+	}
+
+	private long getBetween(ZonedDateTime dt1, ZonedDateTime dt2, ChronoUnit unit) {
+		validateDates(dt1, dt2);
+		return unit.between(dt1, dt2);
 	}
 
 	private long calculateWeekDaysBetween(ZonedDateTime dt1, ZonedDateTime dt2) {
