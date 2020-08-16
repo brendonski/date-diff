@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import datediff.model.DaysResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateDiffServiceTest {
 
@@ -26,6 +27,11 @@ public class DateDiffServiceTest {
 		LocalDateTime end = LocalDateTime.of(2020, 11, 29, 17, 15);
 		DaysResponse days = service.getDays(start, end);
 		assertEquals(1L, days.getDays());
+	}
+
+	@Test
+	public void testGetDaysNoDatesException() {
+		assertThrows(IllegalArgumentException.class, () -> new DateDiffService().getDays(null, null));
 	}
 
 }
