@@ -46,8 +46,16 @@ public class DateDiffController {
 	@Get("/weekdays")
 	public WeekDaysResponse weekDays(
 			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
-			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
-		return dateDiff.getWeekDays(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
+			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2,
+			@Nullable @QueryValue("u") ConvertUnit unit) {
+		WeekDaysResponse weekDays = dateDiff.getWeekDays(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
+		if (unit != null) {
+			ConvertResponse convert = new ConvertResponse();
+			convert.setUnit(unit);
+			convert.setValue(unitConverter.convertDays(weekDays.getWeekDays(), unit));
+			weekDays.setConvert(convert);
+		}
+		return weekDays;
 	}
 
 	@Get("/weeks")

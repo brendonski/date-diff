@@ -48,6 +48,13 @@ public class DateDiffControllerTest {
 	}
 
 	@Test
+	void testWeekDaysResponseWithConversion() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/weekdays?d1=10-08-2020%2009:30:00&d2=17-08-2020%2017:30:00&u=HOURS"));
+		assertEquals("{\"weekDays\":5,\"convert\":{\"value\":120,\"unit\":\"HOURS\"}}", response);
+	}
+
+	@Test
 	void testWeeksResponse() {
 		String response = client.toBlocking()
 				.retrieve(HttpRequest.GET("/date-diff/weeks?d1=10-08-2020%2009:30:00&d2=17-08-2020%2017:30:00"));
