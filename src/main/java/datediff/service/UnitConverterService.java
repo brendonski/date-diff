@@ -1,9 +1,12 @@
 package datediff.service;
 
+import javax.inject.Singleton;
+
 import datediff.model.ConvertUnit;
 
 import static datediff.model.ConvertUnit.*;
 
+@Singleton
 public class UnitConverterService implements UnitConverter {
 
 	public long convertDays(long value, ConvertUnit unit) {

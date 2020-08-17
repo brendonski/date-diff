@@ -28,6 +28,13 @@ public class DateDiffControllerTest {
 	}
 
 	@Test
+	void testDaysResponseWithConversion() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/days?d1=31-10-2000%2001:30:00&d2=01-11-2000%2001:31:00&u=MINUTES"));
+		assertEquals("{\"days\":1,\"convert\":{\"value\":1440,\"unit\":\"MINUTES\"}}", response);
+	}
+
+	@Test
 	void testDaysResponseMissingParams() {
 		assertThrows(HttpClientResponseException.class, () -> client.toBlocking()
 				.retrieve(HttpRequest.GET("/date-diff/days?d1=&d2=")));
