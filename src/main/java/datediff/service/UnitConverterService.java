@@ -28,4 +28,9 @@ public class UnitConverterService implements UnitConverter {
 		return minutes * 60;
 	}
 
+	@Override
+	public long convertWeeks(long value, ConvertUnit unit) {
+		return convertDays(value * 7, unit);
+	}
+
 }

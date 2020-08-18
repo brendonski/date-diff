@@ -51,4 +51,9 @@ public class UnitConverterServiceTest {
 		assertEquals(2L, service.convertDays(1000L, ConvertUnit.YEARS));
 	}
 
+	@Test
+	public void testConvertWeeksToHours() {
+		UnitConverterService service = new UnitConverterService();
+		assertEquals(168L, service.convertWeeks(1L, ConvertUnit.HOURS));
+	}
 }

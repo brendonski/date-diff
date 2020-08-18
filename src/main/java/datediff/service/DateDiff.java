@@ -12,6 +12,6 @@ public interface DateDiff {
 
 	WeekDaysResponse getWeekDays(ZonedDateTime dt1, ZonedDateTime dt2);
 
-	WeeksResponse getWeeks(ZonedDateTime dt1, ZonedDateTime dt2);
+	WeeksResponse getCompleteWeeks(ZonedDateTime dt1, ZonedDateTime dt2);
 
 }

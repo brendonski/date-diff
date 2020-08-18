@@ -62,7 +62,7 @@ public class DateDiffController {
 	public WeeksResponse weeks(
 			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d1") LocalDateTime dt1,
 			@Format("dd-MM-yyyy HH:mm:ss") @QueryValue("d2") LocalDateTime dt2) {
-		return dateDiff.getWeeks(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
+		return dateDiff.getCompleteWeeks(dt1.atZone(ZoneId.systemDefault()), dt2.atZone(ZoneId.systemDefault()));
 	}
 
 }
