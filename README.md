@@ -78,7 +78,7 @@ GET /date-diff/weekdays?
 ```
 d1=31-10-2020 01:30:00 (mandatory)
 d2=01-11-2020 12:30:00 (mandatory)
-u=SECONDS (optional, valid values SECONDS, MINUTES, HOURS, YEARS)
+u=seconds (optional, valid values seconds, minutes, hours, years)
 tz1=Europe/Paris (optional, valid timezone for d1)
 tz2=Australia/Adelaide (optional, valid timezone for d2)
 ```
