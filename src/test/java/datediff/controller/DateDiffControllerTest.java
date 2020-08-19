@@ -35,6 +35,27 @@ public class DateDiffControllerTest {
 	}
 
 	@Test
+	void testDaysResponseWithConversionAndTimezone() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/days?d1=18-08-2020%2005:00:00&d2=19-08-2020%2012:30:00&u=MINUTES&tz1=Europe/Paris&tz2=Australia/Adelaide"));
+		assertEquals("{\"days\":1,\"convert\":{\"value\":1440,\"unit\":\"MINUTES\"}}", response);
+	}
+
+	@Test
+	void testDaysResponseWithConversionAndTimezoneLessThanDay() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/days?d1=18-08-2020%2005:01:00&d2=19-08-2020%2012:30:00&u=MINUTES&tz1=Europe/Paris&tz2=Australia/Adelaide"));
+		assertEquals("{\"days\":0,\"convert\":{\"value\":0,\"unit\":\"MINUTES\"}}", response);
+	}
+
+	@Test
+	void testDaysResponseWithConversionAndTimezone1() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/days?d1=18-08-2020%2005:00:00&d2=19-08-2020%2012:30:00&u=MINUTES&tz1=Europe/Paris"));
+		assertEquals("{\"days\":1,\"convert\":{\"value\":1440,\"unit\":\"MINUTES\"}}", response);
+	}
+
+	@Test
 	void testDaysResponseMissingParams() {
 		assertThrows(HttpClientResponseException.class, () -> client.toBlocking()
 				.retrieve(HttpRequest.GET("/date-diff/days?d1=&d2=")));

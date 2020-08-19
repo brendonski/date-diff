@@ -1,6 +1,6 @@
 package datediff.model;
 
-public class DaysResponse {
+public class DaysResponse implements Convertible {
 
 	private long days;
 

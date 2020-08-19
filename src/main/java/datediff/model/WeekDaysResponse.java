@@ -1,6 +1,6 @@
 package datediff.model;
 
-public class WeekDaysResponse {
+public class WeekDaysResponse implements Convertible {
 
 	private long weekDays;
 
