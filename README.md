@@ -1,12 +1,12 @@
 ## date-diff API
 
-The date-diff API is provided by a [Micronaut](https://micronaut.io) Java application.
+The date-diff API is provided by a [Micronaut](https://micronaut.io) Java application. CI pipeline uses GitHub Actions to build, test and package the application.
 
 To run the application from source
 
 `./gradlew run`
 
-or from a downloaded ZIP package
+or downloaded the ZIP package from the latest successful action artifacts.
 
 ```
 unzip date-diff.zip
