@@ -82,4 +82,11 @@ public class DateDiffControllerTest {
 		assertEquals("{\"weeks\":2}", response);
 	}
 
+	@Test
+	void testWeeksResponseWithConversion() {
+		String response = client.toBlocking()
+				.retrieve(HttpRequest.GET("/date-diff/weeks?d1=08-08-2020%2009:30:00&d2=25-08-2020%2017:30:00&u=MINUTES"));
+		assertEquals("{\"weeks\":2,\"convert\":{\"value\":20160,\"unit\":\"MINUTES\"}}", response);
+	}
+
 }
